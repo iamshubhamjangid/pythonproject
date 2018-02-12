@@ -1,33 +1,31 @@
-class CandidateManager:
-    cCount = 0
-    def __init__(self, c_name, c_id, c_aadhar):
-        self.c_name = c_name
-        self.c_id = c_id
-        self.c_aadhar = c_aadhar
-        CandidateManager.cCount += 1
-        cdict={c_name:c_id}
-    def displayCount(self):
-        print ("Total Candidates are: %d" % CandidateManager.cCount)
-    def displayCandidate(self):
-        print ("Name : ", self.c_name,  ", Voter Id ", self.c_id,  ", Aadhar Id: ", self.c_aadhar)
-    def addcndt(self):
-        c_age = int(input("Enter Candidate Age here\t"))
-        if c_age>=28:
-            cfile = open("cdfile.txt",'r')
-            cdict={}
-            for line in cfile:
-                x = line.split(":")
-                cd_id = x[0]
-                cd_name = x[1]
-                cdict[cd_id] = cd_name
-            if self.c_id in cdict:
-                print("User already exist!!!! \nNot allowed to Add multiplae same candidates!!!")
-            else:
-                cfile=open("cdfile.txt",'a')
-                cfile.write(self.c_id)
-                cfile.write(":")
-                cfile.write(self.c_name)
-                cfile.write("\n")
-                print(cfile)
-        else:
-            print("Not even eligible for vote")
+from candidate import cdetails
+class CandidateManager(cdetails):
+    cfile = open("cdfile.txt", 'a')
+    def candidateadd(self):
+	cd=cdetails()
+        cfile = open("cdfile.txt", 'a')
+        cfile.write(cnd_id)
+        cfile.write(":")
+        cfile.write(cd.candidateinit())
+        cfile.write("\n")
+        print(cfile)
+    def isvalidcandidate(self):
+         cdt=cdetails()
+         if cdt.candidateage()>= 28:
+                cfile = open("cdfile.txt",'r')
+                global cdict
+		cdict = {}
+                for line in cfile:
+                    x = line.split(":")
+                    cndt_id = x[0]
+                    cndt_name = x[1]
+                    cdict[cndt_id] = cndt_name
+		global cnd_id
+		cnd_id=cdt.cdidaadhar()
+                if cdict.has_key(cnd_id) :
+                    print("Candidate already exist!!!! \nNot allowed to Add Multiple Same Candidates!!")
+                else:
+                     cdm=CandidateManager()
+		     cdm.candidateadd()
+         else:
+            print("not even eligible for Apply for Candidate!!")
