@@ -1,23 +1,21 @@
 from Candidate import Candidate
-class candidatemgr(Candidate):
+class candidatemgr():
     cddict={}
-    def isValid(self,object):
-	if self.c_age>=28:
-            if candidatemgr.cddict.has_key(self.c_id):
+    def isValid(self,candidate):
+	if candidate.c_age>=28:
+            if self.cddict.has_key(candidate.c_id):
 	       print "User already exists!!!\n Not allowed to store multiple Same!!"
 	    return True
 	else:
 	    print("You are not satisfying the minimum requirements to be a candidtae!!!\n You are under 28!!")
    
-    def add(self,object):
-	candidatemgr.cddict[self.cid]=self.name
-	return candidatemgr.cddict
-
-    def delete(self,object):
-	del candidatemgr.cddict[self.cid]
-	return candidatemgr.cddict
+    def add(self,candidate):
+	self.cddict[candidate.c_id]=candidate.c_name
+	
+    def delete(self,candidate):
+	del self.cddict[candidate.c_id]
 
     def listcandidate(self):
-	print candidatemgr.cddict
+	print self.cddict
 
     

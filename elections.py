@@ -1,13 +1,12 @@
 import datetime
 from Voter import Voter
-from filemgr import filemanager
 from datetime import date
 from vtrmgr import votermgr
 from electionmgr import elmgr
 from cdmgr import candidatemgr
+from Candidate import Candidate
 today = date.today()
 def main():
-  fm=filemanager()
   time=datetime.datetime.now()
   print("\n---------Welcome To Online Voting Portal---------\n")
   if time.hour<=18 and time.hour>=10:
@@ -22,10 +21,11 @@ def main():
                   vid=raw_input("Enter your unique voter id here\t")
                   aadhar=raw_input("Enter your aadhar number here\t")          
                   
-		  VoterMgr=votermgr(vid,aadhar,name,age)
-                  if VoterMgr.isValid(VoterMgr)==True :
-	            VoterMgr.add(VoterMgr)
-		    VoterMgr.listvoter()
+		  voter=Voter(name,aadhar,vid,age)          
+                  vtr=votermgr()
+                  if vtr.isValid(voter)==True :
+	             vtr.add(voter)
+		     vtr.listvoter() 
 		  vtch = raw_input("Add Voter?? [Y/N] \t")
 	      else:
 		  user = raw_input("Who are you?? Choose one of these:\nCandidate-->[C]\nVoter-->[V]\nExit--->[E]")
@@ -35,11 +35,11 @@ def main():
     	          name=raw_input("Enter your name here\t")
                   age=int(input("Enter your age here\t"))
                   cid=raw_input("Enter your unique voter id here\t")
-                  aadhar=raw_input("Enter your aadhar number here\t")          
-                  cdt=candidatemgr(name,aadhar,cid,age)
-                  CdMgr=candidatemgr(cid,aadhar,name,age)
-                  if CdMgr.isValid(CdMgr)==True :
-	             CdMgr.add(CdMgr)
+                  aadhar=raw_input("Enter your aadhar number here\t")
+		  candidate=Candidate(name,aadhar,cid,age)          
+                  CdMgr=candidatemgr()
+                  if CdMgr.isValid(candidate)==True :
+	             CdMgr.add(candidate)
 		     CdMgr.listcandidate()
 		  cdch = raw_input("Add Candidate?? [Y/N] \t")
 	      else:
